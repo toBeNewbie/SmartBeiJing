@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
  *@des splash工具类，检测版本更新。
  */
 public class splashUtils {
+	
 
 	
 	public static void putBoolean(Context context,String key, Boolean value){

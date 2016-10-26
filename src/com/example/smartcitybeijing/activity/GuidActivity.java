@@ -25,6 +25,7 @@ public class GuidActivity extends Activity {
 	
 	private ViewPager vp;
 	
+	
 	private int[] page_id=new int[]{R.drawable.guide_1,R.drawable.guide_2,R.drawable.guide_3};
 	
 	private List<ImageView> mIv_images=new ArrayList<ImageView>();

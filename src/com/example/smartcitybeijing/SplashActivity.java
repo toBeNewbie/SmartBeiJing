@@ -54,6 +54,7 @@ public class SplashActivity extends Activity {
 				// 动画结束，是否进入设置界面
 				Boolean inSetFinish = splashUtils.getbBoolean(getApplicationContext(), myConstantValue.IF_SETUP_FINISH, false);
 				if (inSetFinish) {
+					
 					//进入主界面
 					PrintLog.printLog("进入设置界面");
 				}else {

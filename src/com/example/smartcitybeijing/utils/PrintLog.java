@@ -8,6 +8,7 @@ package com.example.smartcitybeijing.utils;
  *@des 打印日志信息
  */
 public class PrintLog {
+	
 	public static final boolean ifPrintLog=true;
 	public static void printLog(String mess){
 		System.out.println(mess);
