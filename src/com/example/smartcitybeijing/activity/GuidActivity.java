@@ -84,7 +84,6 @@ public class GuidActivity extends Activity {
 			
 			@Override
 			public void onPageScrollStateChanged(int state) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -160,6 +159,7 @@ public class GuidActivity extends Activity {
 		setContentView(R.layout.activity_guide);
 		//获取viewPager组件
 		vp = (ViewPager) findViewById(R.id.vp_setting_activity);
+		
 		ll_grayPointers = (LinearLayout) findViewById(R.id.ll_guide_gray_pointers);
 	
 		v_redPointers = findViewById(R.id.v_guide_red_pointers);
