@@ -59,6 +59,8 @@ public class SplashActivity extends Activity {
 					//进入主界面
 					Intent homeIntent=new Intent(SplashActivity.this, HomeActivity.class);
 					startActivity(homeIntent);
+					//关闭splash界面
+					finish();
 					PrintLog.printLog("进入设置界面");
 				}else {
 					//进入设置向导界面

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00ff00"
+    android:orientation="vertical" >
+
+    <com.example.smartcitybeijing.view.NoScrollViewPage
+        android:id="@+id/vp_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:id="@+id/rg_main_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_tab_bg"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rb_home_activity"
+            style="@style/radio_button_style"
+            android:drawableTop="@drawable/bt_home_main_selector"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/rb_news_center_activity"
+            style="@style/radio_button_style"
+            android:drawableTop="@drawable/bt_home_newscenter_selector"
+            android:text="新闻中心" />
+
+        <RadioButton
+            android:id="@+id/rb_smart_service_activity"
+            style="@style/radio_button_style"
+            android:drawableTop="@drawable/bt_home_smartservice_selector"
+            android:text="智慧服务" />
+
+        <RadioButton
+            android:id="@+id/rb_govaffairs_activity"
+            style="@style/radio_button_style"
+            android:drawableTop="@drawable/bt_home_govaffairs_selector"
+            android:text="政务" />
+
+        <RadioButton
+            android:id="@+id/rb_setting_activity"
+            style="@style/radio_button_style"
+            android:drawableTop="@drawable/bt_home_setting_selector"
+            android:text="设置中心" />
+    </RadioGroup>
+
+</LinearLayout>
