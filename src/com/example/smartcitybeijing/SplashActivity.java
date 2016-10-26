@@ -1,6 +1,7 @@
 package com.example.smartcitybeijing;
 
 import com.example.smartcitybeijing.activity.GuidActivity;
+import com.example.smartcitybeijing.activity.HomeActivity;
 import com.example.smartcitybeijing.utils.PrintLog;
 import com.example.smartcitybeijing.utils.myConstantValue;
 import com.example.smartcitybeijing.utils.splashUtils;
@@ -56,6 +57,8 @@ public class SplashActivity extends Activity {
 				if (inSetFinish) {
 					
 					//进入主界面
+					Intent homeIntent=new Intent(SplashActivity.this, HomeActivity.class);
+					startActivity(homeIntent);
 					PrintLog.printLog("进入设置界面");
 				}else {
 					//进入设置向导界面

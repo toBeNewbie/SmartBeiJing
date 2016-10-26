@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -18,6 +21,9 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.example.smartcitybeijing.R;
 import com.example.smartcitybeijing.utils.DensityUtil;
+import com.example.smartcitybeijing.utils.PrintLog;
+import com.example.smartcitybeijing.utils.myConstantValue;
+import com.example.smartcitybeijing.utils.splashUtils;
 
 public class GuidActivity extends Activity {
 	
@@ -38,6 +44,9 @@ public class GuidActivity extends Activity {
 	
 	private int mPointersWidth;
 
+
+	private Button bt_experience;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,6 +61,24 @@ public class GuidActivity extends Activity {
 
 	private void initEvent() {
 		
+		//添加开始体验事件
+		bt_experience.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				//修改状态值
+				splashUtils.putBoolean(GuidActivity.this, myConstantValue.IF_SETUP_FINISH, true);
+				// 进入主界面
+				Intent homeIntent=new Intent(GuidActivity.this, HomeActivity.class);
+				startActivity(homeIntent);
+				
+				//关闭自己
+				finish();
+			}
+		});
+		
+		//监听布局完成
 		v_redPointers.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 			
 
@@ -67,11 +94,18 @@ public class GuidActivity extends Activity {
 			}
 		});
 
+		//添加ViewPage事件
 		vp.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int position) {
-				// TODO Auto-generated method stub
+				if (mIv_images.size()-1==position) {
+					//显示开始体验按钮
+					bt_experience.setVisibility(View.VISIBLE);
+				}else {
+					//隐藏开始体验按钮
+					bt_experience.setVisibility(View.GONE);
+				}
 				
 			}
 			
@@ -164,5 +198,7 @@ public class GuidActivity extends Activity {
 		ll_grayPointers = (LinearLayout) findViewById(R.id.ll_guide_gray_pointers);
 	
 		v_redPointers = findViewById(R.id.v_guide_red_pointers);
+		
+		bt_experience = (Button) findViewById(R.id.bt_begin_experience_activity);
 	}
 }

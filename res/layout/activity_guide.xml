@@ -8,6 +8,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </android.support.v4.view.ViewPager>
+    
+    <Button 
+        android:textColor="@color/bt_begin_experience_text_color_selector"
+        android:background="@drawable/bt_begin_experience_selector"
+        android:id="@+id/bt_begin_experience_activity"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:text="开始体验"
+        />
 
     <FrameLayout
         android:layout_width="wrap_content"
