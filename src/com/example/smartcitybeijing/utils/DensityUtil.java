@@ -2,6 +2,13 @@ package com.example.smartcitybeijing.utils;
 
 import android.content.Context;
 
+/**
+ * 
+ * @author Administrator
+ *@company Newbie
+ *@date 2016-10-26
+ *@des 设备像素和屏幕像素转换工具类
+ */
 public class DensityUtil {
 	 /** 
      * 根据手机的分辨率从 dip 的单位 转成为 px(像素) 
