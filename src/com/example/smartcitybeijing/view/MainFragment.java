@@ -54,10 +54,11 @@ public class MainFragment extends BaseFragment {
 		
 		//添加页面
 		mPageViews.add(new HomePage(mContext));
-		mPageViews.add(new govaffairsPage(mContext));
 		mPageViews.add(new NewsPage(mContext));
-		mPageViews.add(new SettiongCenterPage(mContext));
 		mPageViews.add(new SmartServicePage(mContext));
+		mPageViews.add(new govaffairsPage(mContext));
+		mPageViews.add(new SettiongCenterPage(mContext));
+		
 		
 		MyAdapter myAdapter=new MyAdapter();
 		mViewPager.setAdapter(myAdapter);
@@ -132,6 +133,15 @@ public class MainFragment extends BaseFragment {
 		super.initEvent();
 	}
 
+	/*
+	 * 获得选择的page
+	 */
+	public BasePages getSelectedPage(){
+		
+		return mPageViews.get(selectedIndex);
+	
+	}
+	
 	
 	public void switchPageItem(){
 		
@@ -143,4 +153,7 @@ public class MainFragment extends BaseFragment {
 		mViewPager.setCurrentItem(selectedIndex);
 		
 	}
+
+
+	
 }

@@ -50,13 +50,13 @@ public class HomeActivity extends SlidingFragmentActivity {
 	 * @return
 	 */
 	public LeftFragment getLeftFragment(){
-		return (LeftFragment) fragmentManager.getFragment(null, LEFT_FRAGMENT);
+		return (LeftFragment) fragmentManager.findFragmentByTag(LEFT_FRAGMENT);
 	}
 	/*
 	 * 获取主界面的fragment
 	 */
 	public MainFragment getMainFragment(){
-		return (MainFragment) fragmentManager.getFragment(null, MAIN_FRAGMENT);
+		return (MainFragment) fragmentManager.findFragmentByTag(MAIN_FRAGMENT);
 	}
 	
 	

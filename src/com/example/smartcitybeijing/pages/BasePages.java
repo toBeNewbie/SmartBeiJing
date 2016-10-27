@@ -65,4 +65,12 @@ public class BasePages {
 	public void initData(){
 		
 	}
+	
+	/**
+	 * 子类覆盖此方法，完成界面的跳转
+	 * @param pageIndex
+	 */
+	public void setSelectedPage(int pageIndex){
+		
+	}
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 左侧菜单被点击可用图片背景 -->
+    <item android:state_enabled="true" android:drawable="@drawable/menu_arr_select"></item>
+	<!-- 左侧菜单未被点击不可用图片背景 -->
+	<item android:state_enabled="false" android:drawable="@drawable/menu_arr_normal"></item>
+</selector>
