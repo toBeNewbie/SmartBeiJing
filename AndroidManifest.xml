@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="com.example.smartcitybeijing.activity.HomeActivity"></activity>
+        <activity android:name="com.example.smartcitybeijing.activity.HomeActivity"
+            android:theme="@style/StyledIndicators"></activity>
         <activity android:name="com.example.smartcitybeijing.activity.GuidActivity"></activity>
     </application>
 

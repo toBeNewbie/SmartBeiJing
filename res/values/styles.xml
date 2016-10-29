@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -17,16 +17,41 @@
         <item name="android:windowNoTitle">true</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
+    <style name="radio_button_style">
+        <item name="android:textColor">@color/bt_raido_button_text_color_selector</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     
-  
-            <style name="radio_button_style">
-                <item name="android:textColor">@color/bt_raido_button_text_color_selector</item>
-                <item name="android:textSize">12sp</item>
-                <item name="android:layout_height">wrap_content</item>
-                <item name="android:layout_weight">1</item>
-                <item name="android:background">#00000000</item>
-                <item name="android:button">@null</item>
-                <item name="android:gravity">center</item>
-            </style>
+    
+    
+    
+    <!-- 页签配置文件 -->
+    <style name="StyledIndicators" parent="@android:style/Theme.Light">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
+    
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/custom_tab_indicator</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textColor">@color/tpi_title_text_color_selector</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:divider">@drawable/custom_tab_indicator_divider</item>
+        <item name="android:dividerPadding">10dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+    </style>
 
 </resources>

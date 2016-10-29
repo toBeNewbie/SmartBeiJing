@@ -132,7 +132,7 @@ public class NewsPage extends BasePages {
 			
 			switch (type) {
 			case 1://新闻
-				mBaseNewsCenterPages.add(new NewsCenterPageItem_News(mContext));
+				mBaseNewsCenterPages.add(new NewsCenterPageItem_News(mContext,newCenterJsonBean.data.get(0).children));
 				break;
 				
 			case 10://专题
