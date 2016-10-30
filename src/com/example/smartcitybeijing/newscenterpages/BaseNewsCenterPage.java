@@ -4,6 +4,13 @@ import android.view.View;
 
 import com.example.smartcitybeijing.activity.HomeActivity;
 
+/**
+ * 
+ * @author Administrator
+ *@company Newbie
+ *@date 2016-10-29
+ *@des 新闻中心轮播界面的基类
+ */
 public abstract class BaseNewsCenterPage {
 	protected HomeActivity mContext;
 	private View rootView;

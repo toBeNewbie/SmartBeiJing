@@ -2,6 +2,7 @@ package com.example.smartcitybeijing.newscenterpages;
 
 import java.util.List;
 
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.example.smartcitybeijing.R;
 import com.example.smartcitybeijing.activity.HomeActivity;
 import com.example.smartcitybeijing.domain.NewCenterJsonBean.Data.Children;
+import com.example.smartcitybeijing.itemtabnewspage.BaseItemTabNewPages;
+import com.example.smartcitybeijing.utils.PrintLog;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -50,14 +53,16 @@ public class NewsCenterPageItem_News extends BaseNewsCenterPage {
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
 			
-			TextView textView=new TextView(mContext);
-			Children childrenData = children.get(position);
-			textView.setGravity(Gravity.CENTER);
-			textView.setTextSize(30);
-			textView.setText(childrenData.title);
+			//viewPage显示的内容
 			
-			container.addView(textView);
-			return textView;
+			BaseItemTabNewPages itemTabNewPages = new BaseItemTabNewPages(mContext,children.get(position));
+			
+			View view = itemTabNewPages.getRootView();
+			
+			//添加到新闻中心界面中
+			container.addView(view);
+			
+			return view;
 		
 		}
 		
@@ -105,6 +110,7 @@ public class NewsCenterPageItem_News extends BaseNewsCenterPage {
 		MyAdapter myAdapter=new MyAdapter();
 		
 		mViewPager.setAdapter(myAdapter);
+		
 		mTabPageIndicator.setViewPager(mViewPager);
 		
 		super.initData();

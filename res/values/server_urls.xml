@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 新闻中心的url -->
-    <string name="news_center_url">http://192.168.159.1:8080/categories.json</string>
+    <string name="news_center_url">http://10.0.2.2:8080/zhbj/categories.json</string>
+    
+    <!-- 服务器主机的URL前缀 -->
+    <string name="base_url">http://10.0.2.2:8080/zhbj/</string>
 </resources>
