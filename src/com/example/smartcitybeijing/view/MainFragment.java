@@ -25,7 +25,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 public class MainFragment extends BaseFragment {
 
 	@ViewInject(R.id.vp_main_fragment)
-	private ViewPager mViewPager;
+	private LazyViewPager mViewPager;
 	
 	@ViewInject(R.id.rg_main_item)
 	private RadioGroup mRadioGroup;
