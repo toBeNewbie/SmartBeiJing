@@ -12,11 +12,11 @@
 
         <!-- viewpage新闻图片轮播 -->
 
-        <android.support.v4.view.ViewPager
+        <com.example.smartcitybeijing.view.InterceptViewPage
             android:id="@+id/vp_item_news_center_pages"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-        </android.support.v4.view.ViewPager>
+        </com.example.smartcitybeijing.view.InterceptViewPage>
 
         <RelativeLayout
             android:layout_width="match_parent"

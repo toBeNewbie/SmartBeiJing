@@ -32,8 +32,15 @@ public class BasePages {
 		
 		initData();
 		
+		
 		initEvent();
 	}
+	
+	public void initLocalDatas() {
+		// TODO Auto-generated method stub
+
+	}
+	
 	
 	public void initEvent() {
 		// TODO Auto-generated method stub

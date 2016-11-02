@@ -6,7 +6,7 @@
     
     <!-- 页签 -->
      
-     <com.viewpagerindicator.TabPageIndicator
+     <com.example.smartcitybeijing.view.InterceptTabViewPage
         android:id="@+id/tpi_news_center_page_index"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"

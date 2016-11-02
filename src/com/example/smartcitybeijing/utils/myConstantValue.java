@@ -5,4 +5,6 @@ public interface myConstantValue {
 	
 	String SPL_FILE_CONFIGUE_NAME="smart_beijing";
 	String IF_SETUP_FINISH="if_finish_setup";
+	
+	String LOCAL_NEWS_DATAS="local_news_data";
 }
