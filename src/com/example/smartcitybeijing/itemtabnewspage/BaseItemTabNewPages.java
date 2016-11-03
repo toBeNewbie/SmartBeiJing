@@ -7,7 +7,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -317,6 +319,56 @@ public class BaseItemTabNewPages {
 			//图片
 			ImageView iv = new ImageView(mContext);
 			iv.setScaleType(ScaleType.FIT_XY);
+			
+			//给轮播图片添加触摸事件
+			iv.setOnTouchListener(new OnTouchListener() {
+				
+				private float downX;
+				private float downY;
+				private long downTime;
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					
+					switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN://按下
+						downX = event.getX();
+						downY = event.getY();
+						downTime = System.currentTimeMillis();
+						//停止轮播
+						mHandler.stopLunBo();
+						break;
+						
+					case MotionEvent.ACTION_UP://松开
+						float upX = event.getX();
+						float upY = event.getY();
+						//按下的点在5个像素之内视为点击的同一个点
+						if (Math.round(upX-downX)<5 && Math.round(upY-downY)<5) {
+							//获取当前时间
+							long upTime = System.currentTimeMillis();
+							if (upTime-downTime>500) {
+								//视为点击，处理点击事件
+								Toast.makeText(mContext, "你可以给点击图片添加事件", 1).show();
+							}
+						}
+						
+						//继续轮播图片
+						mHandler.startLunBo();
+						break;
+					
+					case MotionEvent.ACTION_CANCEL:
+						//移动到屏幕外面，取消.则开始轮播
+						mHandler.startLunBo();
+						break;
+					default:
+						break;
+					}
+					
+					// 自己处理消费事件
+					return true;
+				}
+			});
+			
 			
 			
 			// 数据
