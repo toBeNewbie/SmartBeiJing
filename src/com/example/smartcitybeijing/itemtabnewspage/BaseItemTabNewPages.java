@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.example.smartcitybeijing.R;
 import com.example.smartcitybeijing.activity.HomeActivity;
 import com.example.smartcitybeijing.domain.NewCenterJsonBean.Data.Children;
 import com.example.smartcitybeijing.domain.NewsDetailData;
+import com.example.smartcitybeijing.domain.NewsDetailData.Data.News;
 import com.example.smartcitybeijing.domain.NewsDetailData.Data.TopNews;
 import com.example.smartcitybeijing.utils.DensityUtil;
 import com.example.smartcitybeijing.utils.PrintLog;
@@ -72,6 +74,12 @@ public class BaseItemTabNewPages {
 	private VPAdapter mVpAdapter;
 
 	private BitmapUtils mBitmapUtils;
+
+	private List<News> mLvItemNewsDatas;
+
+	private LVAdapter mLVAdapter;
+
+	private View lunBoView;
 
 	public BaseItemTabNewPages(HomeActivity context, Children children) {
 		this.mContext = context;
@@ -196,8 +204,94 @@ public class BaseItemTabNewPages {
 		
 		//开始图片轮播
 		startLunBo();
+		
+		//获得listview新闻中心数据
+		mLvItemNewsDatas = detailData.data.news;
+		
+		//设置新闻中心listview的条目数据
+		setLvNewsItemDatas();
 	}
 
+	
+	
+	//给新闻中心listview设置适配器
+	private class LVAdapter extends BaseAdapter{
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			
+			if (mLvItemNewsDatas!=null) {
+				
+				return mLvItemNewsDatas.size();
+			}
+			return 0;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// 数据显示
+			ViewHolder mHolder=null;
+			if (convertView==null) {
+				
+				convertView = View.inflate(mContext, R.layout.item_news_center_lv_mess, null);
+				
+				mHolder=new ViewHolder();
+				mHolder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_item_news_lv_mess);
+				mHolder.iv_menu=(ImageView) convertView.findViewById(R.id.iv_item_news_lv_menu);
+				mHolder.tv_mess = (TextView) convertView.findViewById(R.id.tv_item_news_lv_desc);
+				mHolder.tv_time=(TextView) convertView.findViewById(R.id.tv_item_news_lv_time);
+				
+				convertView.setTag(mHolder);
+			}else {
+				mHolder = (ViewHolder)convertView.getTag();
+			}
+			
+			News mNews = mLvItemNewsDatas.get(position);
+			//显示新闻图标
+			mBitmapUtils.display(mHolder.iv_icon, mNews.listimage);
+			mHolder.tv_mess.setText(mNews.title);
+			mHolder.tv_time.setText(mNews.pubdate);
+			
+			//获取数据并赋值
+			return convertView;
+		}
+		
+	}  
+	
+	
+	private class ViewHolder{
+		ImageView iv_icon;
+		TextView tv_mess;
+		TextView tv_time;
+		ImageView iv_menu;
+	}
+	
+	//给listview新闻数据绑定适配器
+	private void setLvNewsItemDatas(){
+		if (mLVAdapter==null) {
+			
+			mLVAdapter = new LVAdapter();
+			lv_newsData.setAdapter(mLVAdapter);
+		
+		}else {
+			//刷新数据
+			mLVAdapter.notifyDataSetChanged();
+		}
+	}
+	
 	
 	private class MyHandle extends Handler implements Runnable{
 
@@ -431,9 +525,14 @@ public class BaseItemTabNewPages {
 	private void initView() {
 
 		rootView = View.inflate(mContext, R.layout.tab_news_page_item_news, null);
-
-		ViewUtils.inject(this, rootView);
+		View lunBoView = View.inflate(mContext, R.layout.item_lunbo_view, null);
 		
+		
+		ViewUtils.inject(this, rootView);
+		ViewUtils.inject(this,lunBoView);
+		
+		//给listview添加新闻消息
+		lv_newsData.addHeaderView(lunBoView);
 	}
 
 }

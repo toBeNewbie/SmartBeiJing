@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+     <!-- 轮播图 -->
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" >
+
+        <!-- viewpage新闻图片轮播 -->
+
+        <com.example.smartcitybeijing.view.InterceptViewPage
+            android:id="@+id/vp_item_news_center_pages"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" >
+        </com.example.smartcitybeijing.view.InterceptViewPage>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#33000000"
+            android:gravity="center_vertical" >
+
+            <!-- 图片描述信息 -->
+
+            <TextView
+                android:id="@+id/tv_item_news_center_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="图片一的描述信息"
+                android:textColor="#ffffff" />
+
+            <LinearLayout
+                android:id="@+id/ll_pointers_view_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" >
+
+                <!-- 点的信息数据 -->
+
+                <View
+                    android:id="@+id/view_item_news_center_dots"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/dot_focus" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>

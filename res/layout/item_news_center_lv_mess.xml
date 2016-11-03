@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    >
+    
+    <ImageView
+       	android:padding="1dp"
+       	android:background="#44000000"
+        android:layout_marginTop="5dp"
+        android:id="@+id/iv_item_news_lv_mess"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/news_pic_default" />
+
+    <TextView 
+        android:id="@+id/tv_item_news_lv_desc"
+        android:padding="5dp"
+        android:layout_toRightOf="@id/iv_item_news_lv_mess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="李克强慕容复去了吗发穷恶买房了的父母官"
+        />
+    
+   
+
+    <TextView
+        android:id="@+id/tv_item_news_lv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_item_news_lv_mess"
+        android:layout_alignLeft="@+id/tv_item_news_lv_desc"
+        android:paddingLeft="5dp"
+        android:text="2014-10-3 11:13" />
+    
+     <ImageView
+        android:id="@+id/iv_item_news_lv_menu" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_news_comment_num"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_item_news_lv_time"
+		android:paddingRight="10dp"
+        />
+    
+</RelativeLayout>
