@@ -4,11 +4,14 @@ import java.util.List;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +21,10 @@ import com.example.smartcitybeijing.activity.HomeActivity;
 import com.example.smartcitybeijing.domain.NewCenterJsonBean.Data.Children;
 import com.example.smartcitybeijing.domain.NewsDetailData;
 import com.example.smartcitybeijing.domain.NewsDetailData.Data.TopNews;
+import com.example.smartcitybeijing.utils.DensityUtil;
 import com.example.smartcitybeijing.utils.PrintLog;
+import com.example.smartcitybeijing.utils.myConstantValue;
+import com.example.smartcitybeijing.utils.splashUtils;
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -30,20 +36,22 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
- * 页面对应的页面
+ * 新闻页面对应的页面
  * 
  * @author Administrator
  * 
  */
 public class BaseItemTabNewPages {
 
+	private NewsDetailData detailData;
+	
 	@ViewInject(R.id.vp_item_news_center_pages)
 	private ViewPager vp_lunbos;
 
 	@ViewInject(R.id.tv_item_news_center_desc)
 	private TextView tv_desc;
 
-	@ViewInject(R.id.ll_guide_gray_pointers)
+	@ViewInject(R.id.ll_pointers_view_tab)
 	private LinearLayout ll_points;
 
 	@ViewInject(R.id.lv_item_news_center_mess)
@@ -71,6 +79,48 @@ public class BaseItemTabNewPages {
 
 		initData();
 
+		//初始化本地数据
+		initLocalDatas();
+		
+		initEvent();
+}
+
+	private void initEvent() {
+		
+		//给轮播图设置点击事件
+		vp_lunbos.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int position) {
+				// 设置点的状态
+				setPointersState(position);
+			}
+			
+			@Override
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPixels) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int state) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	//初始化本地缓存数据
+	private void initLocalDatas() {
+		// TODO Auto-generated method stub
+		String itemTabNewsDatas = splashUtils.getString(mContext, myConstantValue.LOCAL_ITEM_TAB_NEWS_DATAS, null);
+		if (!TextUtils.isEmpty(itemTabNewsDatas)) {
+			// 2. 解析json数据
+			detailData = parseData(itemTabNewsDatas);
+			// 3. 处理json数据
+			processData(detailData);
+		}
 	}
 
 	private void initData() {
@@ -82,6 +132,7 @@ public class BaseItemTabNewPages {
 				+ mChildren.url;
 		getDataFromNet(newsDetailUrl);
 
+		
 	}
 
 	private void getDataFromNet(String newsDetailUrl) {
@@ -90,12 +141,17 @@ public class BaseItemTabNewPages {
 		httpUtils.send(HttpMethod.GET, newsDetailUrl,
 				new RequestCallBack<String>() {
 
+				
+
 					@Override
 					public void onSuccess(ResponseInfo<String> responseInfo) {
 						// 1.获取json数据
 						String jsonData = responseInfo.result;
-						// 2. 解析json数据
-						NewsDetailData detailData = parseData(jsonData);
+						
+						//本地缓存新闻中心列表数据
+						splashUtils.putString(mContext, myConstantValue.LOCAL_ITEM_TAB_NEWS_DATAS, jsonData);
+						
+						detailData = parseData(jsonData);
 						// 3. 处理json数据
 						processData(detailData);
 
@@ -120,9 +176,60 @@ public class BaseItemTabNewPages {
 		// TODO Auto-generated method stub
 
 		// 轮播图的数据
-
 		mTopnews = detailData.data.topnews;
+		//设置轮播图的数据
 		setLunBoData();
+
+		//初始化点的数据
+		initPointers();
+
+		//设置点的状态，和描述信息
+		setPointersState(0);
+	}
+
+	/**
+	 * 设置点的数据，和轮播图片信息的描述
+	 * @param position
+	 * 			：轮播图片的位置
+	 */
+	private void setPointersState(int position) {
+		// 设置轮播图片的描述信息
+		tv_desc.setText(mTopnews.get(position).title);
+		
+		//点的可用状态设置
+		for (int i = 0; i < mTopnews.size(); i++) {
+			
+				//获取点的组件
+				View view = ll_points.getChildAt(i);
+				//设置点的信息可用
+				view.setEnabled(position==i);
+			
+		}
+	}
+
+	/**
+	 * 初始化添加点的数据
+	 */
+	private void initPointers() {
+		
+		//添加点之前先清理点的数据
+		ll_points.removeAllViews();
+		
+		for (int i = 0; i < mTopnews.size(); i++) {
+			View mView = new View(mContext);
+			mView.setBackgroundResource(R.drawable.item_pointers_v_selector);
+			mView.setEnabled(false);
+			
+			//设置点数据显示的基本参数
+			LayoutParams params = new LayoutParams(DensityUtil.dip2px(mContext, 5), DensityUtil.dip2px(mContext, 5));
+			params.leftMargin = DensityUtil.dip2px(mContext, 8);
+			
+			//给view设置布局参数
+			mView.setLayoutParams(params);
+			
+			//添加到线性布局中
+			ll_points.addView(mView);
+		}
 	}
 
 	private void setLunBoData() {
@@ -211,7 +318,7 @@ public class BaseItemTabNewPages {
 		rootView = View.inflate(mContext, R.layout.tab_news_page_item_news, null);
 
 		ViewUtils.inject(this, rootView);
-
+		
 	}
 
 }

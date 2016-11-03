@@ -37,22 +37,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-          <!--   <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/shape_gray_pointer" />
-
-            <View
-                android:layout_marginLeft="20dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/shape_gray_pointer" />
-
-            <View
-                android:layout_marginLeft="20dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/shape_gray_pointer" /> -->
         </LinearLayout>
         
         <View 

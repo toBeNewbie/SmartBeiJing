@@ -66,22 +66,13 @@ public class NewsPage extends BasePages {
 	@Override
 	public void initData() {
 		
-		
-	
-		
 		//动态获取来自服务器的数据
 		//1.请求URL
 		String dataUrl=mContext.getResources().getString(R.string.news_center_url);
-		
-		
-		
+		//从网络请求数据
 		getDataFromNet(dataUrl);
-		
-		
-		
 	}
-
-	
+		
 	
 	@Override
 	public void setSelectedPage(int pageIndex) {
@@ -101,14 +92,14 @@ public class NewsPage extends BasePages {
 		// TODO Auto-generated method stub
 		viewNewsItemPages(pageIndex);
 	}
-
+	
 	private void getDataFromNet(String dataUrl) {
 		// TODO Auto-generated method stub
 		HttpUtils httpUtils=new HttpUtils();
 		httpUtils.send(HttpMethod.GET, dataUrl, new RequestCallBack<String>() {
-
 			
-
+			
+			
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				//2.读取json数据
@@ -123,7 +114,7 @@ public class NewsPage extends BasePages {
 				//4.处理数据，显示在左侧菜单
 				parseJsonFinish(newCenterJsonBean);
 			}
-
+			
 			@Override
 			public void onFailure(HttpException error, String msg) {
 				
@@ -135,7 +126,7 @@ public class NewsPage extends BasePages {
 			}
 		});
 	}
-
+	
 	/**
 	 * 显示获得的数据
 	 * @param newCenterJsonBean
@@ -152,10 +143,10 @@ public class NewsPage extends BasePages {
 		
 		//显示数据,默认显示第一个页面
 		viewNewsItemPages(0);
-				
-				
+		
+		
 	}
-
+	
 	private void viewNewsItemPages(int i) {
 		tv_title.setText(newCenterJsonBean.data.get(i).title);
 		
@@ -169,7 +160,7 @@ public class NewsPage extends BasePages {
 		fl_pagesContent.addView(view);
 		
 	}
-
+	
 	private void initNewsItemPages(NewCenterJsonBean newCenterJsonBean) {
 		
 		//刷新数据，清空集合
@@ -200,7 +191,7 @@ public class NewsPage extends BasePages {
 			}
 		}
 	}
-
+	
 	public void setLeftMenuDatas(NewCenterJsonBean newCenterJsonBean) {
 		//获得左侧菜单的fragment
 		LeftFragment leftFragment = mContext.getLeftFragment();
@@ -217,7 +208,7 @@ public class NewsPage extends BasePages {
 			}
 		});
 	}
-
+	
 	protected NewCenterJsonBean parseJsonData(String jsonStr) {
 		// TODO Auto-generated method stub
 		Gson mGson=new Gson();
@@ -232,3 +223,12 @@ public class NewsPage extends BasePages {
 	
 	
 }
+		
+		
+	
+		
+		
+		
+		
+
+	
