@@ -2,6 +2,7 @@ package com.example.smartcitybeijing.itemtabnewspage;
 
 import java.util.List;
 
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -57,6 +58,9 @@ public class BaseItemTabNewPages {
 	@ViewInject(R.id.lv_item_news_center_mess)
 	private ListView lv_newsData;
 
+	MyHandle mHandler;
+	
+	
 	private HomeActivity mContext;
 	private View rootView;
 	private Children mChildren;
@@ -167,6 +171,8 @@ public class BaseItemTabNewPages {
 
 	}
 
+
+	
 	/**
 	 * 处理数据
 	 * 
@@ -185,6 +191,60 @@ public class BaseItemTabNewPages {
 
 		//设置点的状态，和描述信息
 		setPointersState(0);
+		
+		//开始图片轮播
+		startLunBo();
+	}
+
+	
+	private class MyHandle extends Handler implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			// 主线程 每隔2秒执行一次
+			vp_lunbos.setCurrentItem((vp_lunbos.getCurrentItem()+1)%vp_lunbos.getAdapter().getCount());
+		
+			postDelayed(this, 2000);//再发一个消息
+		}
+		
+		private void startLunBo() {
+			// 开始轮播
+			stopLunBo();
+			
+			postDelayed(this, 2000);
+		}
+		
+		
+		private void stopLunBo() {
+			// 停止轮播
+			removeCallbacksAndMessages(null);
+		}
+	}
+	
+	/**
+	 * 开始轮播图片
+	 */
+	private void startLunBo() {
+		// TODO Auto-generated method stub
+		if (mHandler==null) {
+			mHandler=new MyHandle();
+		}
+		
+		mHandler.startLunBo();
+		/*//移除所有的消息，初始化本地和网络数据调用两次需清理消息在执行延时任务时
+		mHandler.removeCallbacksAndMessages(null);
+		
+		mHandler.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// 主线程 每隔2秒执行一次
+				vp_lunbos.setCurrentItem((vp_lunbos.getCurrentItem()+1)%vp_lunbos.getAdapter().getCount());
+			
+				mHandler.postDelayed(this, 2000);
+			}
+		}, 2000);*/
 	}
 
 	/**
@@ -309,6 +369,9 @@ public class BaseItemTabNewPages {
 
 	}
 
+	/*
+	 * 返回根布局
+	 */
 	public View getRootView() {
 		return rootView;
 	}
