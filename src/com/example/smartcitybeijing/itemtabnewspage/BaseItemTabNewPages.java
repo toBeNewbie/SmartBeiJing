@@ -3,6 +3,7 @@ package com.example.smartcitybeijing.itemtabnewspage;
 import java.util.List;
 
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +30,8 @@ import com.example.smartcitybeijing.utils.DensityUtil;
 import com.example.smartcitybeijing.utils.PrintLog;
 import com.example.smartcitybeijing.utils.myConstantValue;
 import com.example.smartcitybeijing.utils.splashUtils;
+import com.example.smartcitybeijing.view.refreshListView;
+import com.example.smartcitybeijing.view.refreshListView.OnRefreshDataListerner;
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -60,7 +62,7 @@ public class BaseItemTabNewPages {
 	private LinearLayout ll_points;
 
 	@ViewInject(R.id.lv_item_news_center_mess)
-	private ListView lv_newsData;
+	private refreshListView lv_newsData;
 
 	MyHandle mHandler;
 	
@@ -100,6 +102,35 @@ public class BaseItemTabNewPages {
 }
 
 	private void initEvent() {
+		
+		//正在刷新监听器
+		lv_newsData.setOnRefreshDataListerner(new OnRefreshDataListerner() {
+			
+			@Override
+			public void refresh() {
+				// 更新数据
+				new Thread(){
+					@Override
+					public void run() {
+						
+						//在这里处理加载更多数据的业务
+						
+						SystemClock.sleep(2000);
+						//更新状态
+						mContext.runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// 更新状态
+								lv_newsData.updateRefreshState();
+							}
+						});
+					}
+				}.start();
+			}
+		});
+		
+		
 		
 		//给轮播图设置点击事件
 		vp_lunbos.setOnPageChangeListener(new OnPageChangeListener() {
@@ -532,7 +563,7 @@ public class BaseItemTabNewPages {
 		ViewUtils.inject(this,lunBoView);
 		
 		//给listview添加新闻消息
-		lv_newsData.addHeaderView(lunBoView);
+		lv_newsData.addLunBoView(lunBoView);
 	}
 
 }
