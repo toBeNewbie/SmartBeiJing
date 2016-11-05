@@ -83,6 +83,10 @@ public class BaseItemTabNewPages {
 
 	private View lunBoView;
 
+	private String newsDetailUrl;
+	
+	private boolean ifRefreshing=false;
+
 	public BaseItemTabNewPages(HomeActivity context, Children children) {
 		this.mContext = context;
 		this.mChildren = children;
@@ -108,8 +112,15 @@ public class BaseItemTabNewPages {
 			
 			@Override
 			public void refresh() {
+				
+				//设置状态为正在刷新状态
+				ifRefreshing=true;
+				
 				// 更新数据
-				new Thread(){
+				getDataFromNet(newsDetailUrl);
+				
+				
+			/*	new Thread(){
 					@Override
 					public void run() {
 						
@@ -126,7 +137,7 @@ public class BaseItemTabNewPages {
 							}
 						});
 					}
-				}.start();
+				}.start();*/
 			}
 		});
 		
@@ -171,8 +182,7 @@ public class BaseItemTabNewPages {
 	private void initData() {
 		// 初始化数据
 
-		// 网络获取
-		String newsDetailUrl = mContext.getResources().getString(
+		newsDetailUrl = mContext.getResources().getString(
 				R.string.base_url)
 				+ mChildren.url;
 		getDataFromNet(newsDetailUrl);
@@ -199,6 +209,16 @@ public class BaseItemTabNewPages {
 						detailData = parseData(jsonData);
 						// 3. 处理json数据
 						processData(detailData);
+						
+						if (ifRefreshing) {
+							//刷新成功
+							Toast.makeText(mContext, "刷新数据成功", 0).show();
+							
+							ifRefreshing=false;
+							
+							//更新下拉刷新状态处理
+							lv_newsData.updateRefreshState();
+						}
 
 					}
 

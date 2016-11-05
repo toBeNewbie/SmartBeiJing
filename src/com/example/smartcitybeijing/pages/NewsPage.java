@@ -219,9 +219,6 @@ public class NewsPage extends BasePages {
 		return jsonData;
 	}
 	
-	
-	
-	
 }
 		
 		
