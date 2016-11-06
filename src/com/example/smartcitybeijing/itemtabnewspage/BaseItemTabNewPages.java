@@ -2,8 +2,8 @@ package com.example.smartcitybeijing.itemtabnewspage;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.smartcitybeijing.R;
 import com.example.smartcitybeijing.activity.HomeActivity;
+import com.example.smartcitybeijing.activity.newsContentDeailActivity;
 import com.example.smartcitybeijing.domain.NewCenterJsonBean.Data.Children;
 import com.example.smartcitybeijing.domain.NewsDetailData;
 import com.example.smartcitybeijing.domain.NewsDetailData.Data.News;
@@ -87,6 +90,10 @@ public class BaseItemTabNewPages {
 	
 	private boolean ifRefreshing=false;
 
+	private String mLoadingMoreDataUrl="";//加载更多数据的URL
+
+	private String moreUrl;
+	
 	public BaseItemTabNewPages(HomeActivity context, Children children) {
 		this.mContext = context;
 		this.mChildren = children;
@@ -107,6 +114,29 @@ public class BaseItemTabNewPages {
 
 	private void initEvent() {
 		
+		
+		/**
+		 * 给新闻条目添加点击事件
+		 */
+		lv_newsData.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// 获得点击的新闻位置
+				News newsDeail = mLvItemNewsDatas.get(position-1);
+				//获得新闻网页的URL地址
+				String newsDeailUrl = newsDeail.url;
+				
+				//启动具体新闻界面
+				Intent newsDeailIntent = new Intent(mContext, newsContentDeailActivity.class);
+				newsDeailIntent.putExtra(myConstantValue.NEWS_CONTENT_DEAILS_URL, newsDeailUrl);
+				
+				mContext.startActivity(newsDeailIntent);
+			}
+		});
+		
+		
 		//正在刷新监听器
 		lv_newsData.setOnRefreshDataListerner(new OnRefreshDataListerner() {
 			
@@ -117,7 +147,7 @@ public class BaseItemTabNewPages {
 				ifRefreshing=true;
 				
 				// 更新数据
-				getDataFromNet(newsDetailUrl);
+				getDataFromNet(newsDetailUrl,false);
 				
 				
 			/*	new Thread(){
@@ -138,6 +168,28 @@ public class BaseItemTabNewPages {
 						});
 					}
 				}.start();*/
+			}
+
+			@Override
+			public void loadingMoreData() {
+				// 加载更多数据逻辑
+			
+				//获得更多数据
+				if (!TextUtils.isEmpty(moreUrl)) {
+					//有更多数据
+					System.out.println("有更多数据要加载.............");
+					
+					getDataFromNet(mLoadingMoreDataUrl,true);
+					
+//					mLoadingMoreDataUrl="";
+					
+				}else {
+					//没有更多数据
+					Toast.makeText(mContext, "没有更多数据", 1).show();
+					//更新刷新view状态
+					lv_newsData.updateRefreshViewState();
+				}
+				
 			}
 		});
 		
@@ -185,12 +237,12 @@ public class BaseItemTabNewPages {
 		newsDetailUrl = mContext.getResources().getString(
 				R.string.base_url)
 				+ mChildren.url;
-		getDataFromNet(newsDetailUrl);
+		getDataFromNet(newsDetailUrl,false);
 
 		
 	}
 
-	private void getDataFromNet(String newsDetailUrl) {
+	private void getDataFromNet(String newsDetailUrl,final boolean ifLoadingMore) {
 		// 网络获取数据
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.send(HttpMethod.GET, newsDetailUrl,
@@ -207,18 +259,35 @@ public class BaseItemTabNewPages {
 						splashUtils.putString(mContext, myConstantValue.LOCAL_ITEM_TAB_NEWS_DATAS, jsonData);
 						
 						detailData = parseData(jsonData);
-						// 3. 处理json数据
-						processData(detailData);
 						
-						if (ifRefreshing) {
-							//刷新成功
-							Toast.makeText(mContext, "刷新数据成功", 0).show();
+						//不是加载更多数据
+						if (!ifLoadingMore) {
+							// 3. 处理json数据
+							processData(detailData);
 							
-							ifRefreshing=false;
+							if (ifRefreshing) {
+								//刷新成功
+								Toast.makeText(mContext, "刷新数据成功", 0).show();
+								
+								ifRefreshing=false;
+								
+								//更新下拉刷新状态处理
+								lv_newsData.updateRefreshViewState();
+							}
+						}else {
+							//加载更多数据
+							//在原有的数据新闻添加新的新闻数据
+							mLvItemNewsDatas.addAll(detailData.data.news);
 							
-							//更新下拉刷新状态处理
-							lv_newsData.updateRefreshState();
+PrintLog.printLog("加载更多数据");
+							//通知刷新界面
+							mLVAdapter.notifyDataSetChanged();
+							//更新刷新状态
+							lv_newsData.updateRefreshViewState();
+							
+							Toast.makeText(mContext, "成功加载更多数据", 1).show();
 						}
+						
 
 					}
 
@@ -561,6 +630,18 @@ public class BaseItemTabNewPages {
 		// 2. class
 		NewsDetailData detailData = gson.fromJson(jsonData,
 				NewsDetailData.class);
+		
+		moreUrl = detailData.data.more;
+		if (!TextUtils.isEmpty(moreUrl)) {
+			
+			//加载更多数据的url
+			
+			mLoadingMoreDataUrl=mContext.getResources().getString(R.string.base_url)+moreUrl;
+			PrintLog.printLog(mLoadingMoreDataUrl+"8888888888");
+		}else {
+			moreUrl="";
+		}
+		
 		// 3. result
 		return detailData;
 

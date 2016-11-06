@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,7 +26,7 @@ public class refreshListView extends ListView {
 	private LinearLayout ll_refreshHeadView;
 	private LinearLayout ll_footView;
 	private int mRefreshHeadViewHeight;
-	private int ll_footViewHeight;
+	private int mFootViewHeight;
 	
 	private static final int DROP_DOWN_REFRESH_STATE=1;//下拉刷新
 	private static final int RELEASE_STATE=2;//松开刷新
@@ -43,6 +44,9 @@ public class refreshListView extends ListView {
 	private RotateAnimation ra_up;
 	private RotateAnimation ra_down;
 
+	
+	private boolean ifLoadintMoreData=false;//判断是否是加载更多
+	
 	public refreshListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
@@ -52,8 +56,51 @@ public class refreshListView extends ListView {
 		initFootRefreshView();
 		
 		initAnimation();
+		
+		initEvent();
 	}
 	
+	private void initEvent() {
+		// 监听是否滑动到最后一条数据
+		this.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// 静止状态
+				if (scrollState==OnScrollListener.SCROLL_STATE_IDLE) {
+					//判断是否滑动到最后一条数据，并且不是处于加载更多数据的状态
+					if (getLastVisiblePosition()==getAdapter().getCount()-1 && !ifLoadintMoreData) {
+						
+						//正在加载更多数据改为true
+						ifLoadintMoreData=true;
+						
+						
+						//显示刷新界面
+						ll_footView.setPadding(0, 0, 0, 0);
+						
+						//设置显示界面下拉刷新
+						setSelection(getAdapter().getCount());
+						
+						if (mOnRefreshDataListerner!=null) {
+							
+							//加载更多数据
+							mOnRefreshDataListerner.loadingMoreData();
+						}
+					}
+				}
+				
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+	}
+
 	/**
 	 * 初始化动画
 	 */
@@ -178,6 +225,19 @@ public class refreshListView extends ListView {
 		return super.onTouchEvent(ev);
 	}
 	
+	
+	public void updateRefreshViewState(){
+		if (ifLoadintMoreData) {
+			//如果是加载更多
+			ll_footView.setPadding(0, -mFootViewHeight, 0, 0);
+			ifLoadintMoreData=false;
+		}else {
+			//不是加载更多，上拉刷新
+			updateRefreshState();
+		}
+	}
+	
+	
 	//更新刷新状态
 	public void updateRefreshState(){
 		//改变状态,下拉刷新
@@ -249,6 +309,8 @@ public class refreshListView extends ListView {
 		
 		//正在加载更多数据
 		void refresh();
+		
+		void loadingMoreData();
 	}
 	
 	
@@ -297,10 +359,10 @@ public class refreshListView extends ListView {
 		ll_footView=(LinearLayout) View.inflate(getContext(), R.layout.view_dorp_up_refresh_foot, null);
 		
 		ll_footView.measure(0, 0);
-		ll_footViewHeight = ll_footView.getMeasuredHeight();
+		mFootViewHeight = ll_footView.getMeasuredHeight();
 		
 		//隐藏加载更多刷新界面
-		ll_footView.setPadding(0, -ll_footViewHeight, 0, 0);
+		ll_footView.setPadding(0, -mFootViewHeight, 0, 0);
 		
 		addFooterView(ll_footView);
 	

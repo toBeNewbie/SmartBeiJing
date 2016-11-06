@@ -10,4 +10,6 @@ public interface myConstantValue {
 	
 	
 	String LOCAL_ITEM_TAB_NEWS_DATAS="local_item_tab_news_datas";
+	
+	String NEWS_CONTENT_DEAILS_URL="news_content_deails";
 }

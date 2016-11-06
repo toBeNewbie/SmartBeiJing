@@ -9,7 +9,7 @@ package com.example.smartcitybeijing.utils;
  */
 public class PrintLog {
 	
-	public static final boolean ifPrintLog=true;
+	public static final boolean ifPrintLog=false;
 	public static void printLog(String mess){
 		System.out.println(mess);
 	}
