@@ -1,6 +1,7 @@
 package com.example.smartcitybeijing.activity;
 
 import com.example.smartcitybeijing.R;
+import com.example.smartcitybeijing.pages.BasePages;
 import com.example.smartcitybeijing.view.LeftFragment;
 import com.example.smartcitybeijing.view.MainFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -44,6 +45,14 @@ public class HomeActivity extends SlidingFragmentActivity {
 		beginTransaction.commit();
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		getMainFragment().switchPageItem();
+		
+		super.onResume();
+	}
 	
 	/**
 	 * 获取侧面滑动的fragment

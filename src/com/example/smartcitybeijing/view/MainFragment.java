@@ -47,7 +47,10 @@ public class MainFragment extends BaseFragment {
 	@Override
 	public void initData() {
 		
-		mRadioGroup.check(R.id.rb_home_activity);
+		
+//		mRadioGroup.check(R.id.rb_home_activity);
+		initCurrentPage();
+		
 		
 		//初始化滑动界面
 		switchPageItem();
@@ -155,5 +158,23 @@ public class MainFragment extends BaseFragment {
 	}
 
 
+	/**
+	 * 初始化新闻界面
+	 */
+	public void initCurrentPage(){
+		
+		switch (selectedIndex) {
+		case 0:
+			mRadioGroup.check(R.id.rb_home_activity);
+			break;
+			
+		case 1:
+			mRadioGroup.check(R.id.rb_news_center_activity);
+			break;
+
+		default:
+			break;
+		}
+	}
 	
 }
