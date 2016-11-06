@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/title_red_bg" >
+
+    <!-- 标题头左侧 -->
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp" >
+
+        <!-- 菜单按钮 -->
+
+        <ImageView
+            android:id="@+id/iv_menu_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_menu" />
+
+        <!-- 返回按钮 -->
+
+        <ImageView
+            android:id="@+id/iv_back_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_title_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="标题"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp" >
+
+        <ImageView
+            android:id="@+id/iv_title_bar_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_textsize"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_title_bar_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_share"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_title_bar_gred_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_pic_grid_type"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_title_bar_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_pic_list_type"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

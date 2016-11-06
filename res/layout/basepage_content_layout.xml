@@ -4,35 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/title_red_bg"
-        >
-        <ImageView 
-            android:id="@+id/iv_menu_item"
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_menu"
-            />
-        <TextView 
-            android:id="@+id/tv_title_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:text="标题"
-            />
-    </RelativeLayout>
+  
+    <!-- 导入标题栏 -->
+    <include layout="@layout/title_bar_view"/>
     
     <FrameLayout 
         android:id="@+id/fl_content_mess"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        
+       
         
     </FrameLayout>
 

@@ -3,12 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <TextView 
+
+    <include layout="@layout/title_bar_view" />
+
+    <!-- 显示新闻 -->
+
+    <WebView
+        android:id="@+id/wb_news_detail_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 加载新闻进度条 -->
+
+    <ProgressBar
+        android:id="@+id/pb_news_loading_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="新闻的详细内容"
-        android:textSize="30sp"
-        />
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/red_circle_process" />
 
 </LinearLayout>
