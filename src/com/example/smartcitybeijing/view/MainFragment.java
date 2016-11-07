@@ -48,8 +48,8 @@ public class MainFragment extends BaseFragment {
 	public void initData() {
 		
 		
-//		mRadioGroup.check(R.id.rb_home_activity);
-		initCurrentPage();
+		mRadioGroup.check(R.id.rb_home_activity);
+//		initCurrentPage();
 		
 		
 		//初始化滑动界面
@@ -160,7 +160,7 @@ public class MainFragment extends BaseFragment {
 
 	/**
 	 * 初始化新闻界面
-	 */
+	 *//*
 	public void initCurrentPage(){
 		
 		switch (selectedIndex) {
@@ -175,6 +175,6 @@ public class MainFragment extends BaseFragment {
 		default:
 			break;
 		}
-	}
+	}*/
 	
 }

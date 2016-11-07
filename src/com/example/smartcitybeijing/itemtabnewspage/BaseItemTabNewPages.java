@@ -3,6 +3,7 @@ package com.example.smartcitybeijing.itemtabnewspage;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -127,6 +128,25 @@ public class BaseItemTabNewPages {
 				News newsDeail = mLvItemNewsDatas.get(position-1);
 				//获得新闻网页的URL地址
 				String newsDeailUrl = newsDeail.url;
+				
+				//获取新闻的ID
+				String newsId = newsDeail.id;
+				String newsDeailIds = splashUtils.getString(mContext, myConstantValue.HAVE_READED_NEWS_ID, null);
+				if (TextUtils.isEmpty(newsDeailIds)) {
+					//为空
+					newsDeailIds=newsId;
+				}else {
+					//不为空
+					newsDeailIds+=","+newsId;
+				}
+				
+				//保存newsId
+				splashUtils.putString(mContext, myConstantValue.HAVE_READED_NEWS_ID, newsDeailIds);
+				
+				//更新界面
+				mLVAdapter.notifyDataSetChanged();
+				
+				
 				
 				//启动具体新闻界面
 				Intent newsDeailIntent = new Intent(mContext, newsContentDeailActivity.class);
@@ -382,6 +402,21 @@ PrintLog.printLog("加载更多数据");
 			News mNews = mLvItemNewsDatas.get(position);
 			//显示新闻图标
 			mBitmapUtils.display(mHolder.iv_icon, mNews.listimage);
+			
+			//取出news的ID号
+			String newsIds = splashUtils.getString(mContext, myConstantValue.HAVE_READED_NEWS_ID, "");
+			String newId = mNews.id;
+			if (newsIds.contains(newId)) {
+				//包含  标记为已读新闻   标记为灰色
+				mHolder.tv_mess.setTextColor(Color.GRAY);
+				mHolder.tv_time.setTextColor(Color.GRAY);
+			}else {
+				//不包含 标记为未读新闻   标记为黑色
+				mHolder.tv_mess.setTextColor(Color.BLACK);
+				mHolder.tv_time.setTextColor(Color.BLACK);
+			}
+			
+			
 			mHolder.tv_mess.setText(mNews.title);
 			mHolder.tv_time.setText(mNews.pubdate);
 			

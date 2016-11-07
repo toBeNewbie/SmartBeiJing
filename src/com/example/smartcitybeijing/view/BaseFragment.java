@@ -39,6 +39,18 @@ public abstract class BaseFragment extends Fragment {
 	
 	}
 	
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		
+		//只要activity没有销毁，该方法不会调用
+		initData();
+		
+		initEvent();
+	
+	}
+	
 	public abstract View initView();
 	
 	/**
@@ -59,8 +71,8 @@ public abstract class BaseFragment extends Fragment {
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
-		initData();
-		initEvent();
+//		initData();
+//		initEvent();
 		super.onStart();
 	}
 }

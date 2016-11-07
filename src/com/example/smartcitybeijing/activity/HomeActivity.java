@@ -46,13 +46,13 @@ public class HomeActivity extends SlidingFragmentActivity {
 	}
 
 	
-	@Override
+	/*@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		getMainFragment().switchPageItem();
 		
 		super.onResume();
-	}
+	}*/
 	
 	/**
 	 * 获取侧面滑动的fragment
