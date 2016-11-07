@@ -14,4 +14,6 @@ public interface myConstantValue {
 	String NEWS_CONTENT_DEAILS_URL="news_content_deails";
 	
 	String HAVE_READED_NEWS_ID="have_readed_news_Id";
+	
+	String GROUP_PHOTO_DATA_JSON="group_photo_data_json";
 }

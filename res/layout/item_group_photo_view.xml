@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 组图图片 -->
+
+    <ImageView
+        android:id="@+id/iv_item_group_photo_picture"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/pic_item_list_default" />
+
+    
+    <!-- 图片描述信息 -->
+    <TextView
+        android:id="@+id/tv_item_group_photo_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="没有了雨，雨刷开始不停左右"
+        android:layout_marginLeft="5dp"
+        android:textSize="18sp" />
+
+</LinearLayout>

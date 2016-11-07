@@ -155,7 +155,26 @@ public class NewsPage extends BasePages {
 		//获得要显示的view组件
 		BaseNewsCenterPage baseNewsCenterPage = mBaseNewsCenterPages.get(i);
 		
+		//初始化页面数据
+		baseNewsCenterPage.initData();
+		
+		//判断显示的页面是否是组图，处理标题菜单按钮显示
+		if (baseNewsCenterPage instanceof NewsCenterPageItem_Photos) {
+			//如果是组图页面,显示组图按钮
+			iv_showGroutViewDatas.setVisibility(View.VISIBLE);
+			
+			//给iv_showGroutViewDatas设置标记存储页面*********
+			iv_showGroutViewDatas.setTag(baseNewsCenterPage);
+			
+		}else {
+			
+			//隐藏组图按钮
+			iv_showGroutViewDatas.setVisibility(View.GONE);
+		
+		}
+		
 		View view = baseNewsCenterPage.getRootView();
+		
 		//添加到帧布局中
 		fl_pagesContent.addView(view);
 		

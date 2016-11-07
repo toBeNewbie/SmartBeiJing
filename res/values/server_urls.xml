@@ -5,4 +5,8 @@
     
     <!-- 服务器主机的URL前缀 -->
     <string name="base_url">http://10.0.2.2:8080/zhbj/</string>
+    
+    <!-- 组图的URL -->
+    <string name="group_photo_url">http://10.0.2.2:8080/zhbj/photos/photos_1.json</string>
+    
 </resources>

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.smartcitybeijing.R;
 import com.example.smartcitybeijing.activity.HomeActivity;
+import com.example.smartcitybeijing.newscenterpages.NewsCenterPageItem_Photos;
 
 /**
  * 
@@ -23,6 +24,7 @@ public class BasePages {
 	protected ImageView iv_menu;
 	protected TextView tv_title;
 	protected FrameLayout fl_pagesContent;
+	protected ImageView iv_showGroutViewDatas;
 	
 	public BasePages(HomeActivity context) {
 		
@@ -43,6 +45,21 @@ public class BasePages {
 	
 	
 	public void initEvent() {
+		
+		//给组图按钮添加点击事件，完成页面切换
+		iv_showGroutViewDatas.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// 完成组图页面listview和gridView页面的切换
+				NewsCenterPageItem_Photos mCenterPageItem_Photos = (NewsCenterPageItem_Photos) v.getTag();
+				
+				mCenterPageItem_Photos.switchGroupPhotoView((ImageView) v);
+			
+			}
+		});
+		
+		
 		// TODO Auto-generated method stub
 		iv_menu.setOnClickListener(new OnClickListener() {
 			
@@ -61,7 +78,8 @@ public class BasePages {
 		iv_menu = (ImageView) rootView.findViewById(R.id.iv_menu_item);
 		tv_title = (TextView) rootView.findViewById(R.id.tv_title_item);
 		fl_pagesContent = (FrameLayout) rootView.findViewById(R.id.fl_content_mess);
-	
+		
+		iv_showGroutViewDatas = (ImageView) rootView.findViewById(R.id.iv_title_bar_gred_view);
 	}
 	
 	public View getRootView(){
